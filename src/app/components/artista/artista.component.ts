@@ -1,15 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SpotifyService } from '../../services/spotify.service';
 
 @Component({
   selector: 'app-artista',
-  templateUrl: './artista.component.html',
-  styles: []
+  templateUrl: './artista.component.html'
 })
-export class ArtistaComponent implements OnInit {
+export class ArtistaComponent {
 
-  constructor() { }
+  artista: any = {};
+  loadingArtist: boolean;
 
-  ngOnInit() {
+  constructor(private router: ActivatedRoute, private spotifyService: SpotifyService) {
+  
+    this.loadingArtist = true;
+
+    this.router.params.subscribe(params => {
+      this.getArtista(params['id']);
+    });  
   }
 
+  getArtista(id: string){
+    this.loadingArtist = true;
+      this.spotifyService.getArtista(id)
+          .subscribe(artista => {
+            this.artista = artista;
+            this.loadingArtist = false;
+          });
+    }
 }

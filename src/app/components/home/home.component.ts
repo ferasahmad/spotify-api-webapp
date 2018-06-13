@@ -12,13 +12,17 @@ export class HomeComponent implements OnInit {
 paises: any[] = [];
 
   nuevasCanciones: any[] = [];
+  loading: boolean;
 
   constructor(private sprotifyService: SpotifyService ) {
     // set loading
+    this.loading = true;
+
     this.sprotifyService
         .getNewReleases()
         .subscribe( (dataResponse: any) => {
-          this.nuevasCanciones = dataResponse.albums.items;
+          this.nuevasCanciones = dataResponse;
+          this.loading = false;
         });
   }
 
