@@ -1,10 +1,10 @@
-const express = require('express');
-const app = express();
+var express = require('express');
+var app = express();
 
 app.use(express.static('www'));
 
-// app.get('*', function(req, res) {
-//     res.sendFile('/src/index.html');
-// });
+app.set('port', process.env.PORT || 500);
 
-app.listen(process.env.PORT || 8080);
+app.listen(app.get('port'), function() {
+    console.log('Express NodeJS listing on port ' + app.get('port'));
+})
