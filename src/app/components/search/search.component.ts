@@ -8,6 +8,8 @@ import { SpotifyService } from '../../services/spotify.service';
 export class SearchComponent {
   loading: boolean;
   artistas: any[] = [];
+  isError: boolean;
+  errorMessage: string;
 
   constructor(private spotifyService: SpotifyService) { }
 
@@ -18,6 +20,10 @@ export class SearchComponent {
         .subscribe( dataResponse => {
             this.artistas = dataResponse;
             this.loading = false; 
+        }, (errorResponse) => {
+          this.errorMessage = errorResponse.error.error.message;
+          this.isError = true;
+          this.loading = false;
         });
   }
 

@@ -3,5 +3,11 @@
         <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar Artista">
     </div>
 </div>
+<div *ngIf="isError" class="alert alert-danger animated fadeIn m-5">
+    <h3>ERROR</h3>
+    <p>
+        {{errorMessage}}
+    </p>
+</div>
 <app-loading *ngIf="loading" class="m-5"></app-loading>
 <app-tarjetas *ngIf="!loading" [items]="artistas"></app-tarjetas>
